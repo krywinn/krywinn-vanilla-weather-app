@@ -44,14 +44,6 @@ li {
 .weatherNowHeader {
   font-size: 18px;
 }
-.weatherNowIcon {
-  font-size: 50px;
-}
-
-.temperatureNowValue {
-  font-size: 30px;
-  font-weight: bold;
-}
 
 .card {
   text-align: center;
