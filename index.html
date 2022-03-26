@@ -12,7 +12,7 @@
     />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script
       src="https://kit.fontawesome.com/c9b065610f.js"
       crossorigin="anonymous"
@@ -50,7 +50,7 @@
             </form>
           </div>
         </div>
-        <div class="row">
+        <div class="row currentWeather">
           <div class="col-6">
             <h1><strong>Copenhagen</strong></h1>
             <div class="localInfo">
@@ -71,15 +71,14 @@
             </div>
           </ul>
           <div class="weatherNow col-6">
-            <div class="card">
-              <div class="weatherNowHeader">Today</div>
-                    <div class="clearfix">
-                        <img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png" alt="Sunny" class="float-left">
-                        <span class="float-left">5 °C |°F </span>
+                        <div class="weatherContainer d-flex justify-content-end">
+                        <img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png" alt="Sunny" class= "weatherNowIcon"/>
+                        <span class="weatherNowTemp">5°</span>
+                        </div>
+              <div class="feelsLikeNow">Feels like: 0° </div>
+              <div class="weatherNowUnits"><span class="active">°C</span> <span class="inactive"> |°F </span></div>
+
                     </div>
-                    <div class="feelsLikeNow">Feels like: 0° </div>
-                    </div>
-                </div>
             </div>
         <div class="row">
           <h4 class="col-12 headerNextDays">
@@ -131,7 +130,7 @@
         </div>
       </div>
     </div>
-    <span class="author">
+    <div class="author">
       coded by
       <a
         href="https://github.com/krywinn/krywinn-vanilla-weather-app"
@@ -139,7 +138,7 @@
         rel="noopener noreferrer"
         >krywinn</a
       >
-    </span>
+    </div>
     </div>
   </body>
   <script src="src/app.js"></script>

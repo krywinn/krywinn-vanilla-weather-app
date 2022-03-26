@@ -1,6 +1,12 @@
 body {
   background: #ffebeb;
 }
+.author {
+  margin-top: 10px;
+  text-align: right;
+  font-size: small;
+}
+
 .container {
   font-family: "Raleway", sans-serif;
   max-width: 700px;
@@ -16,6 +22,9 @@ body {
 }
 .mb-3 {
   margin-bottom: 10px;
+}
+.currentWeather {
+  margin-top: 10px;
 }
 
 .conditions {
@@ -41,8 +50,31 @@ li {
 .weatherNow {
   text-align: center;
 }
-.weatherNowHeader {
-  font-size: 18px;
+
+.weatherNowIcon {
+  height: 64px;
+  width: 64px;
+  position: relative;
+  top: 15px;
+}
+.weatherNowTemp {
+  font-size: 64px;
+  font: 700;
+  position: relative;
+  top: -10px;
+}
+.weatherNowUnits {
+  text-align: right;
+}
+.active {
+  font-weight: bold;
+  color: #142d4c;
+}
+.inactive {
+  color: #5a93d8;
+}
+.feelsLikeNow {
+  text-align: right;
 }
 
 .card {
@@ -56,10 +88,4 @@ li {
 }
 .headerNextDays {
   padding: 20px;
-}
-
-.author {
-  margin-top: 10px;
-  text-align: right;
-  font-size: small;
 }
