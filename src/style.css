@@ -7,6 +7,12 @@ body {
   font-size: small;
 }
 
+.lastUpdated {
+  margin-top: 20px;
+  padding-top: 20px;
+  font-size: small;
+}
+
 .container {
   font-family: "Raleway", sans-serif;
   max-width: 700px;
@@ -22,6 +28,10 @@ body {
 }
 .mb-3 {
   margin-bottom: 10px;
+}
+
+h1 {
+  margin: 0px;
 }
 .currentWeather {
   margin-top: 10px;
