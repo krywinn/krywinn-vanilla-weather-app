@@ -34,10 +34,16 @@ function showWeather(response) {
   descriptionElement.innerHTML = response.data.weather[0].description;
   feelsLikeElement.innerHTML = Math.round(response.data.main.feels_like);
   timeElement.innerHTML = formatTime(response.data.dt * 1000);
+  console.log(response.data.weather[0].icon);
+  weatherNowIcon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  weatherNowIcon.setAttribute("alt", `${response.data.weather[0].description}`);
 }
 
 let apiKey = "0ad145bfcc1ef1bfc5678ea389f3498a";
-let cityName = "Berlin";
+let cityName = "Cancun";
 let unit = "metric";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=${unit}`;
 
