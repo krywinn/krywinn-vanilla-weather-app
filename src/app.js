@@ -42,9 +42,27 @@ function showWeather(response) {
   weatherNowIcon.setAttribute("alt", `${response.data.weather[0].description}`);
 }
 
+function search(city) {
+  let apiKey = "0ad145bfcc1ef1bfc5678ea389f3498a";
+  let unit = "metric";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`;
+  axios.get(apiUrl).then(showWeather);
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let cityName = document.querySelector("#user-input");
+  search(cityName.value);
+}
+
 let apiKey = "0ad145bfcc1ef1bfc5678ea389f3498a";
-let cityName = "Cancun";
+let cityName = "Copenhagen";
 let unit = "metric";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=${unit}`;
 
 axios.get(apiUrl).then(showWeather);
+
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", handleSubmit);
+
+search("Copenhagen");
