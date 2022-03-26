@@ -10,6 +10,7 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -31,7 +32,6 @@
                   type="search"
                   class="form-control"
                   placeholder="Type a city name"
-                  autofocus
                 />
                 <button
                   class="btn btn-outline-secondary"
@@ -52,30 +52,29 @@
         </div>
         <div class="row currentWeather">
           <div class="col-6">
-            <h1><strong>Copenhagen</strong></h1>
+            <h1 id="cityElement"></h1>
             <div class="localInfo">
                 Denmark, Friday: 10:05am
             </div>
               <ul>
-              <li class="conditions description">
-                  Partially cloudy
+              <li class="conditions description" id="weatherDescription">
                 </li>
               <li class="conditions rain"
-                >Humidity: 0 %
+                >Humidity: <span  id="humidity">0</span> %
                 </li>
-             <li class="conditions wind">
-                  Wind: 7 m/s
+             <li class="conditions wind" >
+                  Wind: <span id="wind">7</span> m/s
                 </li>
-              <li class="conditions airQuality"> Air Quality: 67
+              <li class="conditions airQuality"> Air Quality: <span  id="airQuality"></span>
                 </li>
             </div>
           </ul>
           <div class="weatherNow col-6">
                         <div class="weatherContainer d-flex justify-content-end">
                         <img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png" alt="Sunny" class= "weatherNowIcon"/>
-                        <span class="weatherNowTemp">5°</span>
+                        <span class="weatherNowTemp"><span id="tempValue">5</span>°</span>
                         </div>
-              <div class="feelsLikeNow">Feels like: 0° </div>
+              <div class="feelsLikeNow">Feels like: <span id="feelsLike">0</span>°</div>
               <div class="weatherNowUnits"><span class="active">°C</span> <span class="inactive"> |°F </span></div>
 
                     </div>
@@ -89,42 +88,42 @@
           <div class="col-sm-2">
             <div class="card">
               <h6 class="card-title">Mon</h6>
-              <div class="iconNextDays">☀️</div>
+              <div> <img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png" alt="Sunny" class="iconNextDays"/></div>
               <div class="temperatureNextDays">5° / -2°</div>
             </div>
           </div>
           <div class="col-sm-2">
             <div class="card">
               <h6 class="card-title">Tue</h6>
-              <div class="iconNextDays">☀️</div>
+              <div> <img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png" alt="Sunny" class="iconNextDays"/></div>
               <div class="temperatureNextDays">5° / -2°</div>
             </div>
           </div>
           <div class="col-sm-2">
             <div class="card">
               <h6 class="card-title">Wed</h6>
-              <div class="iconNextDays">☀️</div>
+              <div> <img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png" alt="Sunny" class="iconNextDays"/></div>
               <div class="temperatureNextDays">5° / -2°</div>
             </div>
           </div>
           <div class="col-sm-2">
             <div class="card">
               <h6 class="card-title">Thu</h6>
-              <div class="iconNextDays">☀️</div>
+              <div> <img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png" alt="Sunny" class="iconNextDays"/></div>
               <div class="temperatureNextDays">5° / -2°</div>
             </div>
           </div>
           <div class="col-sm-2">
             <div class="card">
               <h6 class="card-title">Fri</h6>
-              <div class="iconNextDays">☀️</div>
+              <div> <img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png" alt="Sunny" class="iconNextDays"/></div>
               <div class="temperatureNextDays">5° / -2°</div>
             </div>
           </div>
           <div class="col-sm-2">
             <div class="card">
               <h6 class="card-title">Sat</h6>
-              <div class="iconNextDays">☀️</div>
+              <div> <img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png" alt="Sunny" class="iconNextDays"/></div>
               <div class="temperatureNextDays">5° / -2°</div>
             </div>
         </div>

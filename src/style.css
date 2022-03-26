@@ -47,6 +47,9 @@ li {
   list-style: none;
 }
 
+.description {
+  text-transform: capitalize;
+}
 .weatherNow {
   text-align: center;
 }
@@ -60,8 +63,6 @@ li {
 .weatherNowTemp {
   font-size: 64px;
   font: 700;
-  position: relative;
-  top: -10px;
 }
 .weatherNowUnits {
   text-align: right;
@@ -88,4 +89,9 @@ li {
 }
 .headerNextDays {
   padding: 20px;
+}
+
+.iconNextDays {
+  height: 30px;
+  width: 30px;
 }
