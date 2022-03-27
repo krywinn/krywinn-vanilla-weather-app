@@ -414,6 +414,9 @@ let countries = {
   MZ: "Mozambique",
 };
 
+let searchButton = document.querySelector("#button-addon");
+searchButton.addEventListener("click", handleSubmit);
+
 let currentLocation = document.querySelector("#button-geolocator");
 currentLocation.addEventListener("click", getCoordinates);
 
