@@ -23,7 +23,7 @@ function formatTime(timestamp) {
 
 function showWeather(response) {
   celsiusTemperature = response.data.main.temp;
-  //  tempValue.innerHTML = Math.round(celsiusTemperature);
+  feelsLikeTemperature = response.data.main.feels_like;
 
   if (fahrenheitLink.className === "active") {
     tempValue.innerHTML = Math.round((celsiusTemperature * 9) / 5 + 32);
@@ -36,7 +36,15 @@ function showWeather(response) {
   humidityElement.innerHTML = response.data.main.humidity;
   windElement.innerHTML = Math.round(response.data.wind.speed);
   descriptionElement.innerHTML = response.data.weather[0].description;
-  feelsLikeElement.innerHTML = Math.round(response.data.main.feels_like);
+
+  if (fahrenheitLink.className === "active") {
+    feelsLikeElement.innerHTML = Math.round(
+      (feelsLikeTemperature * 9) / 5 + 32
+    );
+  } else {
+    feelsLikeElement.innerHTML = Math.round(feelsLikeTemperature);
+  }
+
   timeElement.innerHTML = formatTime(response.data.dt * 1000);
   console.log(response.data.weather[0].icon);
   weatherNowIcon.setAttribute(
@@ -69,7 +77,11 @@ function showFahrenheitWeather(event) {
   fahrenheitLink.classList.add("active");
   let temperatureElement = document.querySelector("#tempValue");
   let fahrenheitWeather = Math.round((celsiusTemperature * 9) / 5 + 32);
+  let feelsLikeFahrenheitWeather = Math.round(
+    (feelsLikeTemperature * 9) / 5 + 32
+  );
   temperatureElement.innerHTML = fahrenheitWeather;
+  feelsLikeElement.innerHTML = feelsLikeFahrenheitWeather;
 }
 
 function showCelsiusWeather(event) {
@@ -78,6 +90,7 @@ function showCelsiusWeather(event) {
   fahrenheitLink.classList.remove("active");
   let temperatureElement = document.querySelector("#tempValue");
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
+  feelsLikeElement.innerHTML = Math.round(feelsLikeTemperature);
 }
 
 function showCurrentCityWeather(response) {
@@ -95,9 +108,15 @@ function showCurrentCityWeather(response) {
   )}`;
   document.querySelector("#descriptionElement").innerHTML =
     response.data.weather[0].description;
-  document.querySelector("#feelsLikeElement").innerHTML = Math.round(
-    response.data.main.feels_like
-  );
+
+  if (fahrenheitLink.className === "active") {
+    feelsLikeElement.innerHTML = Math.round(
+      (feelsLikeTemperature * 9) / 5 + 32
+    );
+  } else {
+    feelsLikeElement.innerHTML = Math.round(feelsLikeTemperature);
+  }
+
   let foundCountryCode = `${response.data.sys.country}`;
   let countryName = countries[foundCountryCode];
   document.querySelector("#countryElement").innerHTML = countryName;
@@ -134,6 +153,7 @@ let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
 
 let celsiusTemperature = null;
+let feelsLikeTemperature = null;
 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", showFahrenheitWeather);
