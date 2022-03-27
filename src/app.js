@@ -26,6 +26,7 @@ function showWeather(response) {
 
   tempValue.innerHTML = Math.round(celsiusTemperature);
   cityElement.innerHTML = response.data.name;
+  cityElementNextDays.innerHTML = response.data.name;
   humidityElement.innerHTML = response.data.main.humidity;
   windElement.innerHTML = Math.round(response.data.wind.speed);
   descriptionElement.innerHTML = response.data.weather[0].description;
@@ -94,6 +95,7 @@ function showCurrentCityWeather(response) {
 
 function showCurrentCity(city) {
   document.querySelector("#cityElement").innerHTML = city.data.name;
+  document.querySelector("#cityElementNextDays").innerHTML = city.data.name;
 }
 
 function handleCurrentPosition(position) {
