@@ -23,8 +23,14 @@ function formatTime(timestamp) {
 
 function showWeather(response) {
   celsiusTemperature = response.data.main.temp;
+  //  tempValue.innerHTML = Math.round(celsiusTemperature);
 
-  tempValue.innerHTML = Math.round(celsiusTemperature);
+  if (fahrenheitLink.className === "active") {
+    tempValue.innerHTML = Math.round((celsiusTemperature * 9) / 5 + 32);
+  } else {
+    tempValue.innerHTML = Math.round(celsiusTemperature);
+  }
+
   cityElement.innerHTML = response.data.name;
   cityElementNextDays.innerHTML = response.data.name;
   humidityElement.innerHTML = response.data.main.humidity;
@@ -75,8 +81,12 @@ function showCelsiusWeather(event) {
 }
 
 function showCurrentCityWeather(response) {
-  let currentTempRounded = Math.round(response.data.main.temp);
-  document.querySelector("#tempValue").innerHTML = `${currentTempRounded}`;
+  if (fahrenheitLink.className === "active") {
+    tempValue.innerHTML = Math.round((celsiusTemperature * 9) / 5 + 32);
+  } else {
+    tempValue.innerHTML = Math.round(celsiusTemperature);
+  }
+
   document.querySelector(
     "#humidityElement"
   ).innerHTML = `${response.data.main.humidity}`;
