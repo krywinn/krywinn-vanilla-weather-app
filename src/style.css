@@ -8,8 +8,6 @@ body {
 }
 
 .lastUpdated {
-  margin-top: 20px;
-  padding-top: 20px;
   font-size: small;
 }
 
@@ -96,6 +94,7 @@ li {
   text-align: center;
   border-color: #ffff;
   max-width: 100%;
+  padding-bottom: 30px;
 }
 
 .iconNextDays {
