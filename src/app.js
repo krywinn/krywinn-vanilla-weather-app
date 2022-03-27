@@ -22,12 +22,9 @@ function formatTime(timestamp) {
 }
 
 function showWeather(response) {
-  console.log(response.data);
-  console.log(response.data.main.temp);
-  console.log(response.data.main.name);
-  console.log(response.weather);
-  console.log(response.data.weather[0].description);
-  tempValue.innerHTML = Math.round(response.data.main.temp);
+  celsiusTemperature = response.data.main.temp;
+
+  tempValue.innerHTML = Math.round(celsiusTemperature);
   cityElement.innerHTML = response.data.name;
   humidityElement.innerHTML = response.data.main.humidity;
   windElement.innerHTML = Math.round(response.data.wind.speed);
@@ -311,6 +308,23 @@ function handleSubmit(event) {
   search(cityName.value);
 }
 
+function showFahrenheitWeather(event) {
+  event.preventDefault();
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let temperatureElement = document.querySelector("#tempValue");
+  let fahrenheitWeather = Math.round((celsiusTemperature * 9) / 5 + 32);
+  temperatureElement.innerHTML = fahrenheitWeather;
+}
+
+function showCelsiusWeather(event) {
+  event.preventDefault();
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  let temperatureElement = document.querySelector("#tempValue");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
+}
+
 let apiKey = "0ad145bfcc1ef1bfc5678ea389f3498a";
 let cityName = "Copenhagen";
 let unit = "metric";
@@ -320,5 +334,13 @@ axios.get(apiUrl).then(showWeather);
 
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
+
+let celsiusTemperature = null;
+
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", showFahrenheitWeather);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", showCelsiusWeather);
 
 search("Copenhagen");

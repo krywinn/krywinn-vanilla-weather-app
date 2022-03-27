@@ -80,10 +80,13 @@ li {
 .active {
   font-weight: bold;
   color: #142d4c;
+  cursor: default;
+  text-decoration: none;
 }
-.inactive {
-  color: #5a93d8;
+.active:hover {
+  text-decoration: none;
 }
+
 .feelsLikeNow {
   text-align: right;
 }
