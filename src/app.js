@@ -142,6 +142,33 @@ function getCoordinates(response) {
   navigator.geolocation.getCurrentPosition(handleCurrentPosition);
 }
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+    <div class="col-4 col-md-2">
+      <div class="card">
+        <h6 class="card-title">${day}</h6>
+        <div>
+          <img
+            src="https://ssl.gstatic.com/onebox/weather/64/sunny.png"
+            alt="Sunny"
+            class="iconNextDays"
+          />
+        </div>
+        <div class="temperatureNextDays">5° / -2°</div>
+      </div>
+    </div>
+  `;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 let apiKey = "0ad145bfcc1ef1bfc5678ea389f3498a";
 let cityName = "Copenhagen";
 let unit = "metric";
@@ -421,3 +448,4 @@ let currentLocation = document.querySelector("#button-geolocator");
 currentLocation.addEventListener("click", getCoordinates);
 
 search("Copenhagen");
+displayForecast();
