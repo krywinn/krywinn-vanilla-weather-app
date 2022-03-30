@@ -80,6 +80,16 @@ function handleSubmit(event) {
   search(cityName.value);
 }
 
+function showFahrenheitWeatherForecast() {
+  let tempMaxElement = document.querySelector("#forecastMax1");
+  let tempMinElement = document.querySelector("#forecastMin1");
+  console.log(tempMaxElement);
+  let tempFahrenheitMax = Math.round((tempMaxElement * 9) / 5 + 32);
+  let tempFahrenheitMin = Math.round((tempMinElement * 9) / 5 + 32);
+  tempMaxElement.innerHTML = tempFahrenheitMax;
+  tempMinElement.innerHTML = tempFahrenheitMin;
+}
+
 function showFahrenheitWeather(event) {
   event.preventDefault();
   celsiusLink.classList.remove("active");
@@ -181,12 +191,12 @@ function displayForecast(response) {
             class="iconNextDays" />
         </div>
         <div class="tempearture-next-days">
-          <span class="temperature-next-days-max">${Math.round(
-            forecastDay.temp.max
-          )}°</span> 
-          <span class="temperature-next-days-min"> ${Math.round(
-            forecastDay.temp.min
-          )}°</span>
+          <span class="temperature-next-days-max" id="forecastMax${index}">${Math.round(
+          forecastDay.temp.max
+        )}</span>°
+          <span class="temperature-next-days-min" id="forecastMin${index}"> ${Math.round(
+          forecastDay.temp.min
+        )}</span>°
       </div>
       </div>
     </div>
@@ -195,14 +205,11 @@ function displayForecast(response) {
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
-}
 
-//let apiKey = "0ad145bfcc1ef1bfc5678ea389f3498a";
-//let cityName = "Copenhagen";
-//let unit = "metric";
-//let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=${unit}`;
-//console.log(apiUrl);
-//axios.get(apiUrl).then(showWeather);
+  if (fahrenheitLink.className === "active") {
+    showFahrenheitWeatherForecast();
+  }
+}
 
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
