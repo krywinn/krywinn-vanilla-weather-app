@@ -21,6 +21,18 @@ function formatTime(timestamp) {
   return `${[day]}, ${hours}:${minutes}`;
 }
 
+function displayForecastWeather(response) {
+  console.log(response.data.daily);
+}
+
+function getForecast(coordinates) {
+  let apiKey = "0ad145bfcc1ef1bfc5678ea389f3498a";
+  let unit = "metric";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${unit}`;
+
+  axios.get(apiUrl).then(displayForecastWeather);
+}
+
 function showWeather(response) {
   celsiusTemperature = response.data.main.temp;
   feelsLikeTemperature = response.data.main.feels_like;
@@ -56,6 +68,7 @@ function showWeather(response) {
   let foundCountryCode = `${response.data.sys.country}`;
   let countryName = countries[foundCountryCode];
   countryElement.innerHTML = countryName;
+  getForecast(response.data.coord);
 }
 
 function search(city) {
@@ -169,12 +182,12 @@ function displayForecast() {
   forecastElement.innerHTML = forecastHTML;
 }
 
-let apiKey = "0ad145bfcc1ef1bfc5678ea389f3498a";
-let cityName = "Copenhagen";
-let unit = "metric";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=${unit}`;
-
-axios.get(apiUrl).then(showWeather);
+//let apiKey = "0ad145bfcc1ef1bfc5678ea389f3498a";
+//let cityName = "Copenhagen";
+//let unit = "metric";
+//let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=${unit}`;
+//console.log(apiUrl);
+//axios.get(apiUrl).then(showWeather);
 
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
@@ -448,4 +461,3 @@ let currentLocation = document.querySelector("#button-geolocator");
 currentLocation.addEventListener("click", getCoordinates);
 
 search("Copenhagen");
-displayForecast();
