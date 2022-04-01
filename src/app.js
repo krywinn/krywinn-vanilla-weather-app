@@ -116,7 +116,7 @@ function handleSubmit(event) {
 
 function convertWeatherForecastTo(unitType) {
   dailyForecast.forEach(function (weekDay, index) {
-    if (index < 6) {
+    if (index > 0 && index < 7) {
       let tempMin = Math.round(weekDay.temp.min);
       let tempMax = Math.round(weekDay.temp.max);
       let min = document.querySelector("#forecastMin" + index);
@@ -139,7 +139,7 @@ function displayForecast(response) {
   let forecastHTML = `<div class="row">`;
 
   dailyForecast.forEach(function (weekDay, index) {
-    if (index < 6) {
+    if (index > 0 && index < 7) {
       forecastHTML =
         forecastHTML +
         `
