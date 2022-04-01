@@ -157,10 +157,10 @@ function displayForecast(response) {
         <div class="tempearture-next-days">
           <span class="temperature-next-days-max" id="forecastMax${index}">${Math.round(
           weekDay.temp.max
-        )}</span>°
+        )}°</span>
           <span class="temperature-next-days-min" id="forecastMin${index}"> ${Math.round(
           weekDay.temp.min
-        )}</span>°
+        )}°</span>
       </div>
       </div>
     </div>
