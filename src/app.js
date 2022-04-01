@@ -119,8 +119,8 @@ function convertWeatherForecastTo(unitType) {
     if (index < 6) {
       let tempMin = Math.round(weekDay.temp.min);
       let tempMax = Math.round(weekDay.temp.max);
-      let min = document.getElementById("forecastMin" + index);
-      let max = document.getElementById("forecastMax" + index);
+      let min = document.querySelector("#forecastMin" + index);
+      let max = document.querySelector("#forecastMax" + index);
       if (unitType === "metric") {
         min.innerHTML = tempMin;
         max.innerHTML = tempMax;
@@ -157,10 +157,10 @@ function displayForecast(response) {
         <div class="tempearture-next-days">
           <span class="temperature-next-days-max" id="forecastMax${index}">${Math.round(
           weekDay.temp.max
-        )}°</span>
+        )}</span>°
           <span class="temperature-next-days-min" id="forecastMin${index}"> ${Math.round(
           weekDay.temp.min
-        )}°</span>
+        )}</span>°
       </div>
       </div>
     </div>

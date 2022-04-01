@@ -1,6 +1,8 @@
 body {
-  background: #ffebeb;
+  background-size: 105%;
+  background-repeat: no-repeat center fixed;
 }
+
 .author {
   margin-top: 10px;
   text-align: right;
@@ -19,6 +21,7 @@ body {
 }
 .weatherApp {
   background: #ffff;
+  opacity: 90%;
   margin: 0 auto;
   margin-top: 30px;
   padding: 40px;
@@ -118,8 +121,8 @@ li {
 }
 
 .iconNextDays {
-  height: 30px;
-  width: 30px;
+  height: 55px;
+  width: 55px;
 }
 
 .temperature-next-days-max {
