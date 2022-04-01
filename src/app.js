@@ -1,3 +1,5 @@
+// timestamp formatting functions
+
 function formatTime(timestamp) {
   let date = new Date(timestamp);
   let hours = date.getHours();
@@ -21,80 +23,14 @@ function formatTime(timestamp) {
   return `${[day]}, ${hours}:${minutes}`;
 }
 
-function getForecast(coordinates) {
-  let apiKey = "0ad145bfcc1ef1bfc5678ea389f3498a";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${unit}`;
-
-  axios.get(apiUrl).then(displayForecast);
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return `${days[day]}`;
 }
 
-function showWeather(response) {
-  celsiusTemperature = response.data.main.temp;
-  feelsLikeTemperature = response.data.main.feels_like;
-
-  if (fahrenheitLink.className === "active") {
-    tempValue.innerHTML = Math.round((celsiusTemperature * 9) / 5 + 32);
-  } else {
-    tempValue.innerHTML = Math.round(celsiusTemperature);
-  }
-
-  cityElement.innerHTML = response.data.name;
-  cityElementNextDays.innerHTML = response.data.name;
-  humidityElement.innerHTML = response.data.main.humidity;
-  windElement.innerHTML = Math.round(response.data.wind.speed);
-  descriptionElement.innerHTML = response.data.weather[0].description;
-
-  if (fahrenheitLink.className === "active") {
-    feelsLikeElement.innerHTML = Math.round(
-      (feelsLikeTemperature * 9) / 5 + 32
-    );
-  } else {
-    feelsLikeElement.innerHTML = Math.round(feelsLikeTemperature);
-  }
-
-  timeElement.innerHTML = formatTime(response.data.dt * 1000);
-  console.log(response.data.weather[0].icon);
-  weatherNowIcon.setAttribute(
-    "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-  );
-  weatherNowIcon.setAttribute("alt", `${response.data.weather[0].description}`);
-
-  let foundCountryCode = `${response.data.sys.country}`;
-  let countryName = countries[foundCountryCode];
-  countryElement.innerHTML = countryName;
-  getForecast(response.data.coord);
-}
-
-function search(city) {
-  let apiKey = "0ad145bfcc1ef1bfc5678ea389f3498a";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`;
-  axios.get(apiUrl).then(showWeather);
-}
-
-function handleSubmit(event) {
-  event.preventDefault();
-  let cityName = document.querySelector("#user-input");
-  search(cityName.value);
-}
-
-function convertWeatherForecast(unit) {
-  forecastDaily.forEach(function (forecastDay, index) {
-    if (index < 6) {
-      let tempMin = Math.round(forecastDay.temp.min);
-      let tempMax = Math.round(forecastDay.temp.max);
-      let min = document.getElementById("forecastMin" + index);
-      let max = document.getElementById("forecastMax" + index);
-      if (unit === "metric") {
-        min.innerHTML = tempMin;
-        max.innerHTML = tempMax;
-      } else {
-        min.innerHTML = Math.round((tempMin * 9) / 5 + 32);
-        max.innerHTML = Math.round((tempMax * 9) / 5 + 32);
-      }
-    }
-  });
-}
+// user event functions
 
 function showFahrenheitWeather(event) {
   event.preventDefault();
@@ -107,7 +43,7 @@ function showFahrenheitWeather(event) {
   );
   temperatureElement.innerHTML = fahrenheitWeather;
   feelsLikeElement.innerHTML = feelsLikeFahrenheitWeather;
-  convertWeatherForecast("imperial");
+  convertWeatherForecastTo("imperial");
 }
 
 function showCelsiusWeather(event) {
@@ -117,15 +53,23 @@ function showCelsiusWeather(event) {
   let temperatureElement = document.querySelector("#tempValue");
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
   feelsLikeElement.innerHTML = Math.round(feelsLikeTemperature);
-  convertWeatherForecast("metric");
+  convertWeatherForecastTo("metric");
 }
 
 function showCurrentCityWeather(response) {
+  // unit conversion
+
   if (fahrenheitLink.className === "active") {
     tempValue.innerHTML = Math.round((celsiusTemperature * 9) / 5 + 32);
+    feelsLikeElement.innerHTML = Math.round(
+      (feelsLikeTemperature * 9) / 5 + 32
+    );
   } else {
     tempValue.innerHTML = Math.round(celsiusTemperature);
+    feelsLikeElement.innerHTML = Math.round(feelsLikeTemperature);
   }
+
+  // weather params
 
   document.querySelector(
     "#humidityElement"
@@ -136,13 +80,7 @@ function showCurrentCityWeather(response) {
   document.querySelector("#descriptionElement").innerHTML =
     response.data.weather[0].description;
 
-  if (fahrenheitLink.className === "active") {
-    feelsLikeElement.innerHTML = Math.round(
-      (feelsLikeTemperature * 9) / 5 + 32
-    );
-  } else {
-    feelsLikeElement.innerHTML = Math.round(feelsLikeTemperature);
-  }
+  //country code conversion
 
   let foundCountryCode = `${response.data.sys.country}`;
   let countryName = countries[foundCountryCode];
@@ -168,41 +106,60 @@ function getCoordinates(response) {
   navigator.geolocation.getCurrentPosition(handleCurrentPosition);
 }
 
-function formatDay(timestamp) {
-  let date = new Date(timestamp * 1000);
-  let day = date.getDay();
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  return `${days[day]}`;
+function handleSubmit(event) {
+  event.preventDefault();
+  let cityName = document.querySelector("#user-input");
+  search(cityName.value);
+}
+
+// main functions
+
+function convertWeatherForecastTo(unitType) {
+  dailyForecast.forEach(function (weekDay, index) {
+    if (index < 6) {
+      let tempMin = Math.round(weekDay.temp.min);
+      let tempMax = Math.round(weekDay.temp.max);
+      let min = document.getElementById("forecastMin" + index);
+      let max = document.getElementById("forecastMax" + index);
+      if (unitType === "metric") {
+        min.innerHTML = tempMin;
+        max.innerHTML = tempMax;
+      } else {
+        min.innerHTML = Math.round((tempMin * 9) / 5 + 32);
+        max.innerHTML = Math.round((tempMax * 9) / 5 + 32);
+      }
+    }
+  });
 }
 
 function displayForecast(response) {
-  forecastDaily = response.data.daily;
+  dailyForecast = response.data.daily;
 
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
 
-  forecastDaily.forEach(function (forecastDay, index) {
+  dailyForecast.forEach(function (weekDay, index) {
     if (index < 6) {
       forecastHTML =
         forecastHTML +
         `
     <div class="col-4 col-md-2">
       <div class="card">
-        <h6 class="card-title">${formatDay(forecastDay.dt)}</h6>
+        <h6 class="card-title">${formatDay(weekDay.dt)}</h6>
         <div>
           <img
             src="http://openweathermap.org/img/wn/${
-              forecastDay.weather[0].icon
+              weekDay.weather[0].icon
             }@2x.png"
-            alt="${forecastDay.weather[0].description}"
+            alt="${weekDay.weather[0].description}"
             class="iconNextDays" />
         </div>
         <div class="tempearture-next-days">
           <span class="temperature-next-days-max" id="forecastMax${index}">${Math.round(
-          forecastDay.temp.max
+          weekDay.temp.max
         )}</span>°
           <span class="temperature-next-days-min" id="forecastMin${index}"> ${Math.round(
-          forecastDay.temp.min
+          weekDay.temp.min
         )}</span>°
       </div>
       </div>
@@ -213,23 +170,67 @@ function displayForecast(response) {
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
   if (fahrenheitLink.className === "active") {
-    convertWeatherForecast("imperial");
+    convertWeatherForecastTo("imperial");
   }
 }
 
-let form = document.querySelector("#search-form");
-form.addEventListener("submit", handleSubmit);
+function searchCoordinates(coordinates) {
+  let apiKey = "0ad145bfcc1ef1bfc5678ea389f3498a";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${unit}`;
+
+  axios.get(apiUrl).then(displayForecast);
+}
+
+function displayWeather(response) {
+  celsiusTemperature = response.data.main.temp;
+  feelsLikeTemperature = response.data.main.feels_like;
+
+  cityElement.innerHTML = response.data.name;
+  cityElementNextDays.innerHTML = response.data.name;
+  humidityElement.innerHTML = response.data.main.humidity;
+  windElement.innerHTML = Math.round(response.data.wind.speed);
+  descriptionElement.innerHTML = response.data.weather[0].description;
+
+  if (fahrenheitLink.className === "active") {
+    tempValue.innerHTML = Math.round((celsiusTemperature * 9) / 5 + 32);
+    feelsLikeElement.innerHTML = Math.round(
+      (feelsLikeTemperature * 9) / 5 + 32
+    );
+  } else {
+    tempValue.innerHTML = Math.round(celsiusTemperature);
+    feelsLikeElement.innerHTML = Math.round(feelsLikeTemperature);
+  }
+
+  // weather icon
+  weatherNowIcon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  weatherNowIcon.setAttribute("alt", `${response.data.weather[0].description}`);
+
+  // country code conversion
+  let foundCountryCode = `${response.data.sys.country}`;
+  let countryName = countries[foundCountryCode];
+  countryElement.innerHTML = countryName;
+
+  // last updated
+  timeElement.innerHTML = formatTime(response.data.dt * 1000);
+
+  searchCoordinates(response.data.coord);
+}
+
+function search(city) {
+  let apiKey = "0ad145bfcc1ef1bfc5678ea389f3498a";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`;
+  axios.get(apiUrl).then(displayWeather);
+}
+
+// variables
+
 let unit = "metric";
+
 let celsiusTemperature = null;
 let feelsLikeTemperature = null;
-let forecastDaily = null;
-
-let fahrenheitLink = document.querySelector("#fahrenheit-link");
-fahrenheitLink.addEventListener("click", showFahrenheitWeather);
-
-let celsiusLink = document.querySelector("#celsius-link");
-celsiusLink.addEventListener("click", showCelsiusWeather);
-
 let countries = {
   BD: "Bangladesh",
   BE: "Belgium",
@@ -482,11 +483,23 @@ let countries = {
   QA: "Qatar",
   MZ: "Mozambique",
 };
+let dailyForecast = null;
+
+//event listeners
+
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", handleSubmit);
 
 let searchButton = document.querySelector("#button-addon");
 searchButton.addEventListener("click", handleSubmit);
 
 let currentLocation = document.querySelector("#button-geolocator");
 currentLocation.addEventListener("click", getCoordinates);
+
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", showFahrenheitWeather);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", showCelsiusWeather);
 
 search("Copenhagen");
