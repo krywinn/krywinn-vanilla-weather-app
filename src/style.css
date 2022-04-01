@@ -9,6 +9,7 @@ body {
 
 .lastUpdated {
   font-size: small;
+  opacity: 50%;
 }
 
 .container {
@@ -37,7 +38,15 @@ h1 {
 }
 
 .conditions {
-  font-size: 15px;
+  font-size: 16px;
+}
+
+.humidity,
+.feelsLike,
+.description,
+.weatherDescription,
+.speed {
+  opacity: 70%;
 }
 
 .search-icon {
@@ -90,6 +99,9 @@ li {
   text-align: right;
 }
 
+.card-title {
+  font-size: 20px;
+}
 .card {
   text-align: center;
   border-color: #ffff;
@@ -102,9 +114,18 @@ li {
 }
 .headerNextDays {
   padding: 20px;
+  font-size: 20px;
 }
 
 .iconNextDays {
   height: 30px;
   width: 30px;
+}
+
+.temperature-next-days-max {
+  font-size: 20px;
+}
+.temperature-next-days-min {
+  font-size: 20px;
+  opacity: 50%;
 }
